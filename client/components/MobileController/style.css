@@ -1,0 +1,27 @@
+.mobileController {
+  height: 100vh;
+  background-color: #62d3d9;
+  background-image: url(/background.jpg);
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.mobileController .roundQuestion {
+  background-color: #c2081e;
+  color: white;
+  padding: 10px 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.playerList, .pushesList {
+  margin-top: 10px;
+  font-size: 22px;
+  color: white;
+  padding: 10px;
+}
+
+.playerList table, .pushesList table {
+  width:  100%;
+}

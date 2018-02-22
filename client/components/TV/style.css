@@ -1,0 +1,70 @@
+.tvView {
+  width: 100vw;
+  height: 100vh;
+  background-color: #62d3d9;
+  background-image: url(/background.jpg);
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  display: flex;
+}
+
+.tvView .inner {
+  max-width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.tvView .players {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 20%;
+}
+
+.tvView .players .player {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #777;
+}
+
+.tvView .players .player h1 {
+  color: black !important;
+  font-size: 30px !important;
+  font-family: "Muli", cursive;
+}
+
+.tvView .players .player p {
+  color: black !important;
+  font-size: 20px !important;
+  font-family: "Muli", cursive;
+}
+
+.tvView h1 {
+  font-family: "Baloo Thambi", cursive;
+  font-size: 92px !important;
+  color: white !important;
+}
+
+.tvView .roundView p,
+.tvView .intro p {
+  font-size: 74px;
+  font-family: "Muli", cursive;
+  line-height: 95px;
+}
+
+.tvView .questionView {
+  height: 80vh;
+}
+
+.tvView li {
+  font-size: 40px;
+}
+
+.tvView .questionView ul {
+  list-style-type: disc;
+  font-size: 74px;
+}

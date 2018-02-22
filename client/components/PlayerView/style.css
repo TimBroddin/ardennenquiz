@@ -1,0 +1,64 @@
+.playerView {
+  width: 100vw;
+  height: 100vh;
+  background-color: #62d3d9;
+  background-image: url(/background.jpg);
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+.playerView .inner {
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+.playerView h1 {
+  font-family: 'Baloo Thambi', cursive;
+  font-size: 48px !important;
+  color: white !important;
+}
+
+.playerView input[type=text] {
+  font-size: 26px;
+  border: 0;
+  border-radius: 14px;
+  padding: 5px;
+  text-align: center;
+}
+
+.playerView input[type=button] {
+  background-color: #c2081e;
+  color: white;
+  border-radius: 24px;
+  font-size: 36px;
+  margin-top: 30px;
+  padding: 5px 10px;
+  outline: 0;
+  border: 0;
+  font-family: 'Muli', cursive;
+
+
+}
+
+.playerView .stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background-color: #c2081e;
+  color: white;
+  justify-content: space-between;
+  padding: 5px 10px;
+  font-size: 18px;
+}
+
+.playerView .questionContainer {
+  padding-top: 60px;
+  color: white;
+  font-size: 18px;
+  font-family: 'Muli', cursive;
+}
