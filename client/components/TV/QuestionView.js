@@ -56,13 +56,20 @@ class MediaViewer extends Component {
 class QuestionView extends Component {
   componentDidMount() {
     if (this.props.question) {
-      this.askQuestion(this.props.question.question);
+      this.askQuestion(this.props.question);
     }
   }
 
   askQuestion(question) {
-    var msg = new SpeechSynthesisUtterance(question);
+    var msg = new SpeechSynthesisUtterance(question.question);
+    msg.lang = "nl-BE";
+
     window.speechSynthesis.speak(msg);
+    question.options.map(option => {
+      var msg = new SpeechSynthesisUtterance(option.value);
+      msg.lang = "nl-BE";
+      window.speechSynthesis.speak(msg);
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,7 +78,7 @@ class QuestionView extends Component {
         !this.props.question ||
         nextProps.question.question !== this.props.question.question
       ) {
-        this.askQuestion(nextProps.question.question);
+        this.askQuestion(nextProps.question);
       }
     }
   }
