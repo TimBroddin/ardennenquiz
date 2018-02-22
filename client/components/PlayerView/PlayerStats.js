@@ -4,17 +4,9 @@ import { createContainer } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 
 class PlayerStats extends PureComponent {
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.player || !this.props.player) return;
-
-    if (nextProps.player.score > this.props.player.score) {
-      const audio = new Audio("/win.mp3");
-      audio.play();
-    }
-  }
-
   render() {
     const { player, loading } = this.props;
+
     if (!player) return null;
 
     return (

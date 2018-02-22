@@ -226,9 +226,13 @@ Meteor.methods({
       },
       {
         $inc: {
-          score: points
+          score: Math.max(0, points)
         }
       }
     );
+
+    Pushes.insert({ name });
+
+    return points;
   }
 });

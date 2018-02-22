@@ -9,7 +9,8 @@ class Buttons extends Component {
     super(props);
     this.state = {
       timePassed: 0,
-      pushed: false
+      pushed: false,
+      correct: false
     };
   }
 
@@ -48,10 +49,17 @@ class Buttons extends Component {
   }
 
   push(value) {
+    const { question } = this.props;
     this.setState({
       pushed: true
     });
-    Meteor.call("push", this.props.name, value);
+    Meteor.call("push", this.props.name, value, (err, res) => {
+      const audio = res > 0 ? new Audio("/win.mp3") : new Audio("/buzzer.mp3");
+      this.setState({
+        correct: res > 0
+      });
+      audio.play();
+    });
   }
 
   render() {
@@ -67,7 +75,11 @@ class Buttons extends Component {
             <input
               type="button"
               value={option.value}
-              style={style}
+              style={
+                this.state.pushed
+                  ? { backgroundColor: option.correct ? "green" : "red" }
+                  : {}
+              }
               disabled={this.state.pushed}
               onClick={() => this.push(option.value)}
             />

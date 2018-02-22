@@ -55,18 +55,7 @@ const PlayerView = ({ loading, players, pushes, controller }) => {
     let pushIndex = -1;
     let hasPushed = false;
     let time = false;
-    pushes.forEach((push, k) => {
-      if (push.name === player.name) {
-        pushIndex = k;
-        hasPushed = true;
-        if (controller && controller.start) {
-          time = (
-            (push.date.getTime() - controller.start.getTime()) /
-            1000
-          ).toFixed(2);
-        }
-      }
-    });
+
     playerList.push(
       <Player
         key={`player-${player.name}`}
@@ -75,7 +64,6 @@ const PlayerView = ({ loading, players, pushes, controller }) => {
         name={player.name}
         score={player.score}
         hasPushed={hasPushed}
-        time={time}
         pushIndex={pushIndex}
       />
     );

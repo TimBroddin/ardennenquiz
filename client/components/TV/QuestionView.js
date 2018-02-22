@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 import { createContainer } from "meteor/react-meteor-data";
-import { Questions } from "../../../lib/collections";
+import { Questions, Pushes, Players } from "../../../lib/collections";
 
 import "./style.css";
 
@@ -36,7 +36,10 @@ class MediaViewer extends Component {
       mediaUrl.indexOf(".png") !== -1
     ) {
       return (
-        <img src={mediaUrl} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+        <img
+          src={mediaUrl}
+          style={{ maxWidth: "70%", maxHeight: "100%", marginBottom: "30px" }}
+        />
       );
     } else if (mediaUrl.indexOf(".mp4") !== -1) {
       return (
@@ -45,7 +48,7 @@ class MediaViewer extends Component {
           autoPlay="true"
           loop="true"
           src={mediaUrl}
-          style={{ maxWidth: "100%" }}
+          style={{ maxWidth: "70%", marginBottom: "30px" }}
         />
       );
     } else {
@@ -107,38 +110,46 @@ class QuestionView extends Component {
   }
 
   render() {
-    const { loading, question, controller } = this.props;
+    const {
+      loading,
+      question,
+      controller,
+      pushesCount,
+      playersCount
+    } = this.props;
     const { timePassed } = this.state;
     let content;
     if (loading) return <div />;
 
     return (
       <div className="questionView">
-        <h1>
-          {question.question} - {timePassed}s
-        </h1>
+        <div className="top">
+          <h1>{question.question}</h1>
+          <div className="timer">
+            {playersCount !== pushesCount ? `${timePassed}s` : ""}
+          </div>
+        </div>
+
         {question.mediaUrl ? (
           <MediaViewer controller={controller} mediaUrl={question.mediaUrl} />
         ) : null}
-        <ul>
+        <div className="options">
           {question.options.map((option, k) => {
-            console.log(
-              new Date().getTime() - controller.start.getTime() > 20000
-            );
             const style = {
               backgroundColor:
-                new Date().getTime() - controller.start.getTime() > 20000 &&
-                option.correct
+                (new Date().getTime() - controller.start.getTime() > 20000 &&
+                  option.correct) ||
+                (playersCount === pushesCount && option.correct)
                   ? "green"
                   : "transprant"
             };
             return (
-              <li key={`answer-${option.value}-${k}`} style={style}>
+              <div key={`answer-${option.value}-${k}`} style={style}>
                 {option.value}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     );
   }
@@ -146,9 +157,13 @@ class QuestionView extends Component {
 
 export default createContainer(({ questionId }) => {
   const subsHandle = Meteor.subscribe("questions.byId", questionId);
+  const pushesHandle = Meteor.subscribe("pushes.list");
+  const playersHandle = Meteor.subscribe("players.list");
 
   return {
     question: Questions.findOne({ _id: questionId }),
-    loading: !subsHandle.ready()
+    loading: !subsHandle.ready(),
+    pushesCount: Pushes.find().count(),
+    playersCount: Players.find().count()
   };
 }, QuestionView);

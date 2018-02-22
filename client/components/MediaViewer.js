@@ -10,11 +10,9 @@ const MediaViewer = ({ mediaUrl }) => {
     mediaUrl.indexOf(".png") !== -1 ||
     mediaUrl.indexOf(".gif") !== -1
   ) {
-    return <img src={mediaUrl} style={{ maxWidth: "100%" }} />;
+    return <img src={mediaUrl} style={{ maxWidth: "70%" }} />;
   } else if (mediaUrl.indexOf(".mp4") !== -1) {
-    return (
-      <video controls="true" src={mediaUrl} style={{ maxWidth: "100%" }} />
-    );
+    return <video controls="true" src={mediaUrl} style={{ maxWidth: "70%" }} />;
   } else {
     return null;
   }
