@@ -55,10 +55,25 @@ class MediaViewer extends Component {
 }
 
 class QuestionView extends Component {
+  constructor(props) {
+    super(props);
+    this.int = null;
+    this.state = {
+      timePassed: 0
+    };
+  }
+
   componentDidMount() {
     if (this.props.question) {
       this.askQuestion(this.props.question);
     }
+    this.int = setInterval(() => {
+      this.calculateTime();
+    }, 10);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.int);
   }
 
   askQuestion(question) {
@@ -66,11 +81,6 @@ class QuestionView extends Component {
     msg.lang = "nl-BE";
 
     window.speechSynthesis.speak(msg);
-    question.options.map(option => {
-      var msg = new SpeechSynthesisUtterance(option.value);
-      msg.lang = "nl-BE";
-      window.speechSynthesis.speak(msg);
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,21 +94,50 @@ class QuestionView extends Component {
     }
   }
 
+  calculateTime() {
+    const { controller } = this.props;
+    if (controller) {
+      const { start } = controller;
+      let diff = new Date().getTime() - start.getTime();
+      const timePassed = Math.max(20 - Math.round(diff / 10) / 100, 0);
+      this.setState({
+        timePassed: parseFloat(timePassed).toFixed(1)
+      });
+    }
+  }
+
   render() {
     const { loading, question, controller } = this.props;
+    const { timePassed } = this.state;
     let content;
     if (loading) return <div />;
 
     return (
       <div className="questionView">
-        <h1>{question.question}</h1>
+        <h1>
+          {question.question} - {timePassed}s
+        </h1>
         {question.mediaUrl ? (
           <MediaViewer controller={controller} mediaUrl={question.mediaUrl} />
         ) : null}
         <ul>
-          {question.options.map((option, k) => (
-            <li key={`answer-${option.value}-${k}`}>{option.value}</li>
-          ))}
+          {question.options.map((option, k) => {
+            console.log(
+              new Date().getTime() - controller.start.getTime() > 20000
+            );
+            const style = {
+              backgroundColor:
+                new Date().getTime() - controller.start.getTime() > 20000 &&
+                option.correct
+                  ? "green"
+                  : "transprant"
+            };
+            return (
+              <li key={`answer-${option.value}-${k}`} style={style}>
+                {option.value}
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

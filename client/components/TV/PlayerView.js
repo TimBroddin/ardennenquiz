@@ -5,38 +5,13 @@ import { Players, Pushes } from "../../../lib/collections";
 import FlipMove from "react-flip-move";
 
 class Player extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (
-      this.props.name === nextProps.name &&
-      this.props.hasPushed !== nextProps.hasPushed &&
-      this.props.controller === nextProps.controller
-    ) {
-      const audio = new Audio("/druk.mp3");
-      audio.play();
-    }
-
-    if (this.props.name !== nextProps.name) {
-      this.sayWelcome(nextProps.name);
-    }
-
-    if (nextProps.score > this.props.score) {
-      const audio = new Audio("/win.mp3");
-      audio.play();
-    }
-  }
-
   componentDidMount() {
     if (this.props.name) {
       this.sayWelcome(this.props.name);
     }
   }
 
-  sayWelcome(name) {
-    var msg = new SpeechSynthesisUtterance(`Welkom bij de quiz ${name}!`);
-    msg.lang = "nl-BE";
-
-    window.speechSynthesis.speak(msg);
-  }
+  sayWelcome(name) {}
 
   render() {
     const { name, score, hasPushed, time, pushIndex, amount } = this.props;

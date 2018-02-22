@@ -11,7 +11,7 @@ const QuestionContainer = ({ controller, loading }) => {
   } else {
     return (
       <div className="questionContainer">
-        {controller.questionId ? (
+        {controller && controller.questionId ? (
           <div>
             <Question id={controller.questionId} />
             <Buttons controller={controller} />

@@ -13,7 +13,7 @@ function configureStore(initialState, reducer) {
     undefined,
     compose(
       applyMiddleware(thunk),
-      autoRehydrate(),
+      //autoRehydrate(),
       typeof window === "object" &&
       typeof window.devToolsExtension !== "undefined"
         ? window.devToolsExtension()

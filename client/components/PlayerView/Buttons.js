@@ -42,8 +42,7 @@ class Buttons extends Component {
       let diff = new Date().getTime() - start.getTime();
       const timePassed = Math.max(20 - Math.round(diff / 10) / 100, 0);
       this.setState({
-        timePassed: parseFloat(timePassed).toFixed(2),
-        pushed: !timePassed
+        timePassed: parseFloat(timePassed).toFixed(2)
       });
     }
   }
@@ -63,8 +62,8 @@ class Buttons extends Component {
 
     return (
       <div>
-        {question.options.map(option => (
-          <div>
+        {question.options.map((option, k) => (
+          <div key={`${option.value}-${k}`}>
             <input
               type="button"
               value={option.value}
