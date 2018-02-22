@@ -32,6 +32,7 @@ class MediaViewer extends Component {
       return <audio ref="media" src={mediaUrl} autoPlay="true" loop="true" />;
     } else if (
       mediaUrl.indexOf(".jpg") !== -1 ||
+      mediaUrl.indexOf(".gif") !== -1 ||
       mediaUrl.indexOf(".png") !== -1
     ) {
       return (
