@@ -5,13 +5,24 @@ import { Players, Pushes } from "../../../lib/collections";
 import FlipMove from "react-flip-move";
 
 class Player extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.name !== nextProps.name) {
+      this.sayWelcome(nextProps.name);
+    }
+  }
+
   componentDidMount() {
     if (this.props.name) {
       this.sayWelcome(this.props.name);
     }
   }
 
-  sayWelcome(name) {}
+  sayWelcome(name) {
+    var msg = new SpeechSynthesisUtterance(`Hallo ${name}!`);
+    msg.lang = "nl-BE";
+
+    window.speechSynthesis.speak(msg);
+  }
 
   render() {
     const { name, score, hasPushed, time, pushIndex, amount } = this.props;
