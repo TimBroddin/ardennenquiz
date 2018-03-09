@@ -204,9 +204,11 @@ Meteor.methods({
     const controller = Controller.findOne();
     const question = Questions.findOne({ _id: controller.questionId });
     const d = new Date();
+    let correct = false;
     let points = 0;
     question.options.forEach(option => {
       if (option.correct && option.value === value) {
+        correct = true;
         points = Math.round(
           20 - (d.getTime() - controller.start.getTime()) / 1000
         );
@@ -227,6 +229,9 @@ Meteor.methods({
       {
         $inc: {
           score: Math.max(0, points)
+        },
+        $set: {
+          correct
         }
       }
     );

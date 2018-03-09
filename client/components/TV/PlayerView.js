@@ -25,7 +25,15 @@ class Player extends Component {
   }
 
   render() {
-    const { name, score, hasPushed, time, pushIndex, amount } = this.props;
+    const {
+      name,
+      score,
+      hasPushed,
+      time,
+      pushIndex,
+      amount,
+      correct
+    } = this.props;
 
     let style = {
       //    maxWidth: `${ 100 / amount}%`
@@ -33,7 +41,11 @@ class Player extends Component {
 
     if (hasPushed) {
       let opacity = 1 - pushIndex / amount;
-      style.backgroundColor = `rgba(0, 222, 0, ${opacity})`;
+      if (correct) {
+        style.backgroundColor = `rgba(0, 255, 0, ${opacity})`;
+      } else {
+        style.backgroundColor = `rgba(255, 0, 0, ${opacity})`;
+      }
     }
 
     return (
@@ -65,6 +77,7 @@ const PlayerView = ({ loading, players, pushes, controller }) => {
         score={player.score}
         hasPushed={hasPushed}
         pushIndex={pushIndex}
+        isCorrect={player.isCorrect}
       />
     );
   });
