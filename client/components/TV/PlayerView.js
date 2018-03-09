@@ -77,7 +77,7 @@ const PlayerView = ({ loading, players, pushes, controller }) => {
         score={player.score}
         hasPushed={hasPushed}
         pushIndex={pushIndex}
-        isCorrect={player.isCorrect}
+        correct={player.correct}
       />
     );
   });
