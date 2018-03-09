@@ -65,7 +65,7 @@ const PlayerView = ({ loading, players, pushes, controller }) => {
   let playerList = [];
   players.forEach(player => {
     let pushIndex = -1;
-    let hasPushed = false;
+    let hasPushed = Pushes.findOne({ name: player.name }) ? true : false;
     let time = false;
 
     playerList.push(
